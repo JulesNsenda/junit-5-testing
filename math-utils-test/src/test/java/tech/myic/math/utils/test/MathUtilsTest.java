@@ -11,9 +11,9 @@ public class MathUtilsTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        int a = 0;
-        int b = 0;
-        int expResult = 0;
+        int a = 19;
+        int b = 10;
+        int expResult = 29;
         int result = MathUtils.add(a, b);
         assertEquals(expResult, result);
     }
