@@ -1,13 +1,40 @@
 package tech.myic.junit.lifecycle.hook;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MathUtilsTest {
 
+    private MathUtils mu;
+
+    //This is needs to be static to allow Junit to run the @BeforeAll method
+    @BeforeAll
+    public static void beforeAllInit() {
+        System.out.println("Run this before all methods.");
+    }
+    
+    //This is not working...
+    @AfterAll
+    public static void afterAllInit() {
+        System.out.println("Run this after all methods.");
+    }
+
+    @BeforeEach
+    public void init() {
+        mu = new MathUtils();
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        System.out.println("Cleaning up...");
+    }
+
     @Test
     public void addTest() {
-        MathUtils mu = new MathUtils();
         int a = 1;
         int b = 1;
         int result = mu.add(a, b);
@@ -16,7 +43,6 @@ public class MathUtilsTest {
 
     @Test
     public void substractTest() {
-        MathUtils mu = new MathUtils();
         int a = 1;
         int b = 1;
         int result = mu.substract(a, b);
@@ -25,7 +51,6 @@ public class MathUtilsTest {
 
     @Test
     public void multiplyTest() {
-        MathUtils mu = new MathUtils();
         int a = 1;
         int b = 1;
         int result = mu.multiply(a, b);
@@ -34,15 +59,13 @@ public class MathUtilsTest {
 
     @Test
     public void divideTest_throw() {
-        MathUtils mu = new MathUtils();
         int a = 1;
         int b = 0;
         assertThrows(ArithmeticException.class, () -> mu.divide(a, b));
     }
-    
+
     @Test
     public void divideTest() {
-        MathUtils mu = new MathUtils();
         int a = 1;
         int b = 1;
         assertEquals(1, mu.divide(a, b));
